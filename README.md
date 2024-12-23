@@ -1,3 +1,6 @@
+## Swagger:
+- blocking:  http://localhost:8080/swagger-ui/index.html
+- reactive:  http://localhost:8080/webjars/swagger-ui/index.html 
 # Improvement to production
 1. Readability - extract impl to a smaller function, const etc..
 2. Make the main process com.reuven.jfrog.services.GitHubItemsRetrieverServiceImpl.RetrieverData func to a ThreadPool and run together (by urls.size()) 
@@ -17,7 +20,8 @@
    - consumer do the process and aggrigate result - (needs lock the agg)
    - after consumer is done to handle a specific URL -> he send a new status message to a diff kafka topic. 
    - the status_url topic increase the num_url_processed and compare it to num_url_required. if it equale -> send a notification with the URL to the user
-     can to to it also by Aws-Lambda triggered by s3-event
-5. Tests & IT
-6. Logs
-
+     can to it also by Aws-Lambda triggered by s3-event
+5. Redis cache (with TTL) for the result of the GitHub API (for a given URL) - to reduce the traffic to GitHub API
+6. use GraghQL to reduce the traffic to GitHub API (by the user request) - and to reduce the traffic to the user (by the response)
+7. Tests & IT
+8. Logs & Monitoring tools
